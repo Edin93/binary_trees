@@ -15,13 +15,17 @@ binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 	btn->n = value;
 	btn->parent = parent;
 	btn->right = NULL;
-	btn->left = NULL;
 	if (parent->left != NULL)
 	{
 		tmpLeft = parent->left;
 		btn->left = tmpLeft;
 		tmpLeft->parent = btn;
+		parent->left = btn;
 	}
-	parent->left = btn;
+	else
+	{
+		btn->left = NULL;
+		parent->left = btn;
+	}
 	return (btn);
 }
