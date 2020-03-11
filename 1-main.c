@@ -14,6 +14,9 @@ int main(void)
 	root = binary_tree_node(NULL, 98);
 	root->left = binary_tree_node(root, 12);
 	root->right = binary_tree_node(root, 402);
+
+	/* root->left->right = binary_tree_node(root->left, 77); */
+
 	binary_tree_print(root);
 	printf("\n");
 	binary_tree_insert_left(root->right, 128);
