@@ -8,24 +8,19 @@
  */
 binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 {
-	binary_tree_t *btn = malloc(sizeof(binary_tree_t)), *tmpLeft;
+	binary_tree_t *btn = malloc(sizeof(binary_tree_t));
 
 	if (parent == NULL || btn == NULL)
 		return (NULL);
 	btn->n = value;
 	btn->parent = parent;
 	btn->right = NULL;
+	btn->left = NULL;
 	if (parent->left != NULL)
 	{
-		tmpLeft = parent->left;
-		btn->left = tmpLeft;
-		tmpLeft->parent = btn;
-		parent->left = btn;
+		btn->left = parent->left;
+		btn->left->parent = btn;
 	}
-	else
-	{
-		btn->left = NULL;
-		parent->left = btn;
-	}
+	parent->left = btn;
 	return (btn);
 }
