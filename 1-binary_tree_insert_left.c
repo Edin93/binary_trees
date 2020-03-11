@@ -13,7 +13,6 @@ binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 	if (btn == NULL || parent == NULL)
 		return (NULL);
 	btn->n = value;
-	btn->parent = parent;
 	btn->right = NULL;
 	btn->left = NULL;
 	if (parent->left != NULL)
@@ -22,5 +21,6 @@ binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value)
 		btn->left = parent->left;
 	}
 	parent->left = btn;
+	btn->parent = parent;
 	return (btn);
 }
