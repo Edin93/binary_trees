@@ -20,8 +20,6 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	while (arr[i] != NULL)
 	{
 		node = arr[i];
-		if (!tree->left && tree->right)
-			return (0);
 		if (node->left != NULL && has_left_only == 1)
 			return (0);
 		if (node->left == NULL && node->right != NULL)
