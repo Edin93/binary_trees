@@ -7,7 +7,7 @@
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	int i = 0, j = 0, has_left_only = 0;
+	int i = 0, j = 0, has_left_only = 0, has_no_child = 0;
 	binary_tree_t *arr[1024], *node;
 
 	if (tree == NULL)
@@ -20,6 +20,10 @@ int binary_tree_is_complete(const binary_tree_t *tree)
 	while (arr[i] != NULL)
 	{
 		node = arr[i];
+		if ((node->right || node->left) && has_no_child == 1)
+			return (0);
+		if (!node->left && !node->right && has_no_child == 0)
+			has_no_child = 1;
 		if (node->left != NULL && has_left_only == 1)
 			return (0);
 		if (node->left == NULL && node->right != NULL)
