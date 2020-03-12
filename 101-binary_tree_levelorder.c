@@ -15,9 +15,12 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 
 	if (tree == NULL || func == NULL)
 		return;
+	for (i = 0; i < 1024; i++)
+		arr[i] = NULL;
+	i = 0;
 	arr[i] = (binary_tree_t *)tree;
 	j = i;
-	while (arr[i])
+	while (arr[i] != NULL)
 	{
 		node = arr[i];
 		func(node->n);
