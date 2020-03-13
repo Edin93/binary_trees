@@ -1,5 +1,7 @@
 # binary_trees
 
+- The prototypes of all functions are included in binary_trees.h
+
 ## General
 - What is a binary tree
 - What is the difference between a binary tree and a Binary Search Tree
