@@ -19,6 +19,14 @@ bst_t *find_value(bst_t *tree, int value)
 	}
 	return (NULL);
 }
+/**
+ * bst_remove_in_order - function that removes a node from a Binary Search Tree
+ * in-order successor (not predecessor)
+ * @search: Pointer to a searched value
+ * @lowest: Lowest value found
+ * @value: value to remove
+ * Return: pointer to the new root node of the tree
+**/
 bst_t *bst_remove_in_order(bst_t *search, int *lowest, int value)
 {
 	if (search)
