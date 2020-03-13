@@ -1,0 +1,52 @@
+#include "binary_trees.h"
+
+/**
+ * is_bst - checks if a given node is a valid BST.
+ * @node: pointer to the node whose left side is gonna be checked.
+ * @min: smallest value that all node on the right side of the node shound't be
+ * smaller than.
+ @ @max: biggest value that all node on the left of the node shouldn't be
+ * bigger than.
+ * Return: 1 if valid BST, 0 otherwise.
+ */
+int is_bst(binary_tree_t *node, int min, int max)
+{
+	if (node->left)
+	{
+		if (node->left->n >= node->n)
+			return (0);
+		if (node->right)
+		{
+			if (node->right->n > max)
+				return (0);
+		}
+		is_bst(node->left, node->left->n, max);
+	}
+	if (node->right)
+	{
+		if (node->right->n <= node->n)
+			return (0);
+		if (node->left)
+		{
+			if (node->left->n < min)
+				return (0);
+		}
+		is_bst(node->right, min, node->right->n);
+	}
+}
+
+/**
+ * binary_tree_is_bst - check if a binary tree is a valid BST.
+ * @tree: pointer to the root node of the tree to check.
+ * Return: 1 if tree is BST, else 0. If tree is NULL, return 0.
+ */
+int binary_tree_is_bst(const binary_tree_t *tree)
+{
+	binary_tree_t *node;
+
+	if (tree == NULL)
+		return (0);
+	node = (binary_tree_t *)tree;
+	is_bst(node, node->n, node->n);
+	return (1);
+}
