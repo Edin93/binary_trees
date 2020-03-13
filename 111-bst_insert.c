@@ -19,7 +19,7 @@ bst_t *make_insertion(bst_t *root, int value)
 			if (tree->left == NULL)
 			{
 				tree->left = binary_tree_node(tree, value);
-				return (tree);
+				return (tree->left);
 			}
 			else
 				return (make_insertion(tree->left, value));
@@ -29,7 +29,7 @@ bst_t *make_insertion(bst_t *root, int value)
 			if (tree->right == NULL)
 			{
 				tree->right = binary_tree_node(tree, value);
-				return (tree);
+				return (tree->right);
 			}
 			else
 				return (make_insertion(tree->right, value));
@@ -51,8 +51,9 @@ bst_t *bst_insert(bst_t **tree, int value)
 
 	if (!*tree)
 	{
-		*tree = binary_tree_node(*tree, value);
-		return (*tree);
+		new = binary_tree_node(*tree, value);
+		*tree = new;
+		return (new);
 	}
 
 	node = *tree;
