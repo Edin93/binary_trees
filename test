@@ -1,0 +1,75 @@
+#include "binary_trees.h"
+
+int check_left(binary_tree_t *node, int greatest);
+int check_right(binary_tree_t *node, int lowest);
+
+/**
+ * check_left - checks left side of a BST node.
+ * @node: pointer to the node whose left side is gonna be checked.
+ * @greatest: greatest value that all node on the left of the node shouldn't be
+ * bigger than.
+ * Return: 1 if valid BST, 0 otherwise.
+ */
+int check_left(binary_tree_t *node, int greatest)
+{
+	if (node->left->n >= node->n)
+		return (0);
+	if (node->left->n > greatest)
+		return (0);
+	if (node->left &&
+	    node->left->right &&
+	    check_right(node->left, node->n) == 0
+		)
+		return (0);
+	if (node->left &&
+	    node->left->left &&
+	    check_left(node->left, node->n) == 0
+		)
+		return (0);
+	return (1);
+}
+
+/**
+ * check_right - checks right side of a BST node.
+ * @node: pointer to the node whose right side is gonna be checked.
+ * @lowest: lowest value that all node on the right of the node shouldn't be
+ * smaller than.
+ * Return: 1 if valid BST, 0 otherwise.
+ */
+int check_right(binary_tree_t *node, int lowest)
+{
+	if (node->right->n >= node->n)
+		return (0);
+	if (node->right->n < lowest)
+		return (0);
+	if (node->right &&
+	    node->right->right &&
+	    check_right(node->right, node->n) == 0
+		)
+		return (0);
+	if (node->right &&
+	    node->right->left &&
+	    check_left(node->right, node->n) == 0
+		)
+		return (0);
+	return (1);
+}
+
+/**
+ * binary_tree_is_bst - check if a binary tree is a valid BST.
+ * @tree: pointer to the root node of the tree to check.
+ * Return: 1 if tree is BST, else 0. If tree is NULL, return 0.
+ */
+int binary_tree_is_bst(const binary_tree_t *tree)
+{
+	binary_tree_t *node;
+
+	if (tree == NULL)
+		return (0);
+	node = (binary_tree_t *)tree;
+	if (node->left && check_left(node, node->n) == 0)
+		return (0);
+	if (node->right && check_right(node, node->n) == 0)
+		return (0);
+	return (1);
+}
