@@ -27,14 +27,15 @@ bst_t *find_value(bst_t *tree, int value)
  * @value: value to remove
  * Return: pointer to the new root node of the tree
 **/
-bst_t *bst_remove_in_order(bst_t *search, int *lowest, int value)
+bst_t *bst_remove_in_order(bst_t *avoid, bst_t *search, int *lowest, int value)
 {
 	if (search)
 	{
-		printf("search->n = %d\n", search->n);
 		if (search->n < *lowest && search->n != value)
 			*lowest = search->n;
-		bst_remove_in_order(search->right, lowest, value);
+		bst_remove_in_order(avoid, search->right, lowest, value);
+		if (search->left != avoid)
+			bst_remove_in_order(avoid, search->left, lowest, value);
 	}
 	return (NULL);
 }
@@ -47,7 +48,7 @@ bst_t *bst_remove_in_order(bst_t *search, int *lowest, int value)
  **/
 bst_t *bst_remove(bst_t *root, int value)
 {
-	bst_t *search;
+	bst_t *search, *new_root;
 	int lowest;
 
 	if (root == NULL)
@@ -76,8 +77,12 @@ bst_t *bst_remove(bst_t *root, int value)
 	else if (search->left != NULL && search->right != NULL)
 	{
 		lowest = search->right->n;
-		bst_remove_in_order(search, &lowest, value);
-		printf("Lowest is %d\n", lowest);
+		bst_remove_in_order(search->left,
+				search, &lowest, value);
+		new_root = find_value(root, lowest);
+		search->n = new_root->n;
+		return (root);
+
 	}
 	return (root);
 }
