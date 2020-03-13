@@ -19,6 +19,17 @@ bst_t *find_value(bst_t *tree, int value)
 	}
 	return (NULL);
 }
+bst_t *bst_remove_in_order(bst_t *search, int *lowest, int value)
+{
+	if (search)
+	{
+		printf("search->n = %d\n", search->n);
+		if (search->n < *lowest && search->n != value)
+			*lowest = search->n;
+		bst_remove_in_order(search->right, lowest, value);
+	}
+	return (NULL);
+}
 /**
  * bst_remove - function that removes a node from a Binary Search Tree
  * @root: pointer to the root node of the tree where you will remove a node
@@ -29,6 +40,7 @@ bst_t *find_value(bst_t *tree, int value)
 bst_t *bst_remove(bst_t *root, int value)
 {
 	bst_t *search;
+	int lowest;
 
 	if (root == NULL)
 		return (NULL);
@@ -55,9 +67,9 @@ bst_t *bst_remove(bst_t *root, int value)
 	}
 	else if (search->left != NULL && search->right != NULL)
 	{
-		search->right->left->left = search->left;
-		search->right->left->right = search->right;
-		root = search->right->left;
+		lowest = search->right->n;
+		bst_remove_in_order(search, &lowest, value);
+		printf("Lowest is %d\n", lowest);
 	}
 	return (root);
 }
