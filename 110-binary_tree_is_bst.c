@@ -5,18 +5,18 @@
  * in-order traversal
  * @tree: a pointer to the root node of the tree to traverse
  * @arr: array to add node elements to.
- * @i: index of current element to add to the array.
+ * @j: index of current element to add to the array.
  * must be passed as a parameter to this function.
  **/
 void inorder(binary_tree_t *tree, binary_tree_t *arr[], int *j)
 {
-        if (tree)
-        {
-                inorder(tree->left, arr, j);
+	if (tree)
+	{
+		inorder(tree->left, arr, j);
 		arr[*j] = tree;
 		*j = *j + 1;
-                inorder(tree->right, arr, j);
-        }
+		inorder(tree->right, arr, j);
+	}
 }
 
 /**
